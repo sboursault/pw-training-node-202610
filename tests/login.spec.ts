@@ -1,33 +1,18 @@
-import { test, expect } from '@playwright/test';
-
-
+import { test } from '../support/fixtures'
 
 test.describe('test de connexion', () => {
 
-  test.beforeEach(async ({ page }) => {
-    // on the home page
-    await page.goto('/fr/catalogue/');
-    await page.getByRole('link', { name: ' Compte' }).click();
+  test.beforeEach(async ({ homePage }) => {
+    await homePage.gotoLogin();
   })
 
-  test('login ok', async ({ page }) => {
-    // on the login page
-    await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
-    await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('tom@test.test');
-    await page.getByRole('button', { name: 'Connexion' }).click();
-    // on the home page
-    await expect(page.getByRole('heading', { name: 'Tous les produits' })).toBeVisible();
-    await expect(page.getByText('Bienvenue')).toBeVisible();
-    await expect(page.getByRole('button', { name: ' tom@test.test' })).toBeVisible();
+  test('login ok', async ({ loginPage, homePage }) => {
+    await loginPage.login('tom@test.test', 'tom@test.test');
+    await homePage.expectLoggedIn('tom@test.test');
   });
 
-
-  test('login ko', async ({ page }) => {
-    // on the login page
-    await page.getByRole('textbox', { name: 'Adresse électronique *' }).fill('tom@test.test');
-    await page.getByRole('textbox', { name: 'Mot de passe *' }).fill('zut');
-    await page.getByRole('button', { name: 'Connexion' }).click();
-    await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible();
-    await expect(page.getByText('Oups ! Nous avons trouvé des')).toBeVisible();
+  test('login ko', async ({ loginPage }) => {
+    await loginPage.login('tom@test.test', 'zut');
+    await loginPage.expectLoginFailed();
   });
 })
