@@ -1,0 +1,22 @@
+{
+  "name": "pw-training-node-202610",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sboursault/pw-training-node-202610.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sboursault/pw-training-node-202610/issues"
+  },
+  "homepage": "https://github.com/sboursault/pw-training-node-202610#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.6.3"
+  }
+}
