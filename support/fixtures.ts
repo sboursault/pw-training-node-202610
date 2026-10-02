@@ -2,6 +2,7 @@ import { test as base } from "@playwright/test";
 import { ProductPage } from "./page-objects/product-page";
 import { LoginPage } from "./page-objects/login-page";
 import { HomePage } from "./page-objects/home-page";
+import { BasketApi } from "./api/basket-api";
 
 interface CustomFixtures {
 
@@ -10,6 +11,8 @@ interface CustomFixtures {
   loginPage: LoginPage;
 
   homePage: HomePage;
+
+  basketApi: BasketApi;
 
   // list other custom fixtures here
 }
@@ -29,6 +32,11 @@ const test = base.extend<CustomFixtures>({
   homePage: async ({ page }, use) => {
     const homePage = new HomePage(page);
     await use(homePage);
+  },
+
+  basketApi: async ({ request }, use) => {
+    const basketApi = new BasketApi(request);
+    await use(basketApi);
   },
 
   // define other custom fixtures here

@@ -5,7 +5,11 @@ test('recover basket on login', async ({
   loginPage,
   productPage,
   page,
+  basketApi
 }) => {
+
+  basketApi.clearBasket('tom@test.test', 'tom@test.test');
+  
   // - je me connecte
   await loginPage.goto()
   await loginPage.login('tom@test.test', 'tom@test.test')
