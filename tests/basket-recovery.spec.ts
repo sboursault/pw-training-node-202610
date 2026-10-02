@@ -14,6 +14,7 @@ test('recover basket on login', async ({
   // - je vais sur une page produit
   await productPage.goto('the-hitchhikers-guide-to-the-galaxy_4')
   await productPage.expectEmptyBasket()
+  await productPage.expectStock()
   // -> le produit doit être dispo
 
   // - je clique "ajouter au panier"

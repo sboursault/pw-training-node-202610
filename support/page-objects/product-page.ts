@@ -18,6 +18,10 @@ export class ProductPage {
     await expect(this.page.getByText('Votre panier est vide')).toBeVisible();  
   }
 
+  async expectStock() {
+    await expect(this.page.locator('.product_main').getByText(/En stock \(\d+ disponible\(s\)\)/)).toBeVisible();  
+  }
+
   async expectBasketCount(count: number) {
     await expect(this.page.locator('#top_page')).toContainText(`Panier (${count})`);
   }
