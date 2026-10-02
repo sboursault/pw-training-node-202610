@@ -1,19 +1,15 @@
 import { test } from '../support/fixtures'
 
 test('recover basket on login', async ({
-  homePage,
-  loginPage,
+  workflow,
   productPage,
   page,
-  basketApi
+  basketApi,
 }) => {
+  await basketApi.clearBasket('tom@test.test', 'tom@test.test')
 
-  basketApi.clearBasket('tom@test.test', 'tom@test.test');
-  
   // - je me connecte
-  await loginPage.goto()
-  await loginPage.login('tom@test.test', 'tom@test.test')
-  await homePage.expectLoggedIn('tom@test.test')
+  await workflow.login('tom@test.test', 'tom@test.test')
 
   // - je vais sur une page produit
   await productPage.goto('the-hitchhikers-guide-to-the-galaxy_4')
@@ -30,9 +26,7 @@ test('recover basket on login', async ({
   await productPage.expectEmptyBasket()
 
   // - je me reconnecte
-  await loginPage.goto()
-  await loginPage.login('tom@test.test', 'tom@test.test')
-  await homePage.expectLoggedIn('tom@test.test')
+  await workflow.login('tom@test.test', 'tom@test.test')
 
   // - je vais sur une page produit
   await productPage.goto('the-hitchhikers-guide-to-the-galaxy_4')

@@ -3,8 +3,11 @@ import { ProductPage } from "./page-objects/product-page";
 import { LoginPage } from "./page-objects/login-page";
 import { HomePage } from "./page-objects/home-page";
 import { BasketApi } from "./api/basket-api";
+import { Workflow } from "./workflow"
 
 interface CustomFixtures {
+
+  workflow: Workflow;
 
   productPage: ProductPage;
 
@@ -18,6 +21,11 @@ interface CustomFixtures {
 }
 
 const test = base.extend<CustomFixtures>({
+
+  workflow: async ({ page, loginPage, homePage }, use) => {
+    const workflow = new Workflow(page, homePage, loginPage);
+    await use(workflow);
+  },
   
   productPage: async ({ page }, use) => {
     const productPage = new ProductPage(page);
