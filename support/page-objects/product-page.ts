@@ -4,8 +4,9 @@ export class ProductPage {
   
   constructor(readonly page: Page) {}
 
-  async goto() {
-    await this.page.goto('/catalogue/the-hitchhikers-guide-to-the-galaxy_4/');
+  async goto(product: string) {
+    await this.page.goto(`/catalogue/${product}/`);
+    
   }
 
   async addToBasket() {
